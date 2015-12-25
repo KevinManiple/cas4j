@@ -32,19 +32,20 @@
 
     <!-- Ticket Registry -->
     <!-- <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry"/> -->
-	<bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.MemCacheTicketRegistry" c:client-ref="memcachedClient"
-		c:ticketGrantingTicketTimeOut="28800" c:serviceTicketTimeOut="7200" />
-
-	<bean id="memcachedClient" class="net.spy.memcached.spring.MemcachedClientFactoryBean" p:servers="172.20.10.48:11211" p:protocol="BINARY"
-		p:locatorType="ARRAY_MOD" p:failureMode="Redistribute" p:transcoder-ref="kryoTranscoder"
-	>
-		<property name="hashAlg">
-			<util:constant static-field="net.spy.memcached.DefaultHashAlgorithm.FNV1_64_HASH" />
-		</property>
+	<bean id="ticketRegistry" class="com.kingdee.internet.finance.ticket.registry.RedisTicketRegistry">
+		<constructor-arg index="0" ref="redisTemplate" />
+		<!-- TGT timeout in seconds -->
+		<constructor-arg index="1" value="28800" />
+		<!-- ST timeout in seconds -->
+		<constructor-arg index="2" value="7200" />
 	</bean>
 
-	<bean id="kryoTranscoder" class="org.jasig.cas.ticket.registry.support.kryo.KryoTranscoder" init-method="initialize" c:initialBufferSize="8192" />
+	<bean id="jedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:hostName="172.20.10.48" p:port="6379" p:database="0" p:usePool="true" />
 
+	<bean id="redisTemplate" class="com.kingdee.internet.finance.ticket.registry.TicketRedisTemplate"
+		p:connectionFactory-ref="jedisConnFactory" />
     <!--Quartz -->
     <!-- TICKET REGISTRY CLEANER -->
     <!-- 
