@@ -835,6 +835,24 @@
 				<artifactId>ojdbc14</artifactId>
 				<version>${oracle-version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-pool2</artifactId>
+				<version>${commons.pool2.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-redis</artifactId>
+				<version>${spring.data.redis.version}</version>
+			</dependency>
 
 			<!-- CAS -->
 			<dependency>
@@ -1023,6 +1041,9 @@
 		<hazelcast.version>3.5</hazelcast.version>
 		<druid-version>1.0.15</druid-version>
 		<oracle-version>10.2.0.4.0</oracle-version>
+		<commons.pool2.version>2.2</commons.pool2.version>
+		<jedis.version>2.6.2</jedis.version>
+		<spring.data.redis.version>1.5.1.RELEASE</spring.data.redis.version>
 
 		<!-- Project configuration -->
 		<project.build.sourceVersion>1.7</project.build.sourceVersion>
